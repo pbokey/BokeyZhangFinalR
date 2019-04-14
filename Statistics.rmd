@@ -1,0 +1,55 @@
+---
+title: "FinalProject"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+In our project, we are comparing the relative stats and draft order of players in a certain position and how it relates to the money they make in their first contract. For each position we have at least 2 statistics (draft order and skill statistic) that we will compare against first contract earned to see if there is any relation between draft order or performance that relates to earning a contract. In total, we have 6 position groups to analyze, and we have pulled data from draft years 2010 to 2013.
+```{r}
+setwd("~/Spring/Stat/Final")
+QB_Data <- read.csv("QB_Data.csv")
+RB_Data <- read.csv("RB_Data.csv")
+WR_Data <- read.csv("WR_Data.csv")
+DL_Data <- read.csv("DL_Data.csv")
+LB_Data <- read.csv("LB_Data.csv")
+DB_Data <- read.csv("DB_Data.csv")
+```
+```{r}
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+```
+
+The first position group we will be analyzing are the Quarterbacks.
+```{r}
+DraftOrders <- QB_Data$Draft.Order
+AvgDraftOrder <- mean(DraftOrders)
+```
+The average draft order of the Quarterbacks we selected was:
+```{r}
+AvgDraftOrder
+```
+The median draft order was:
+```{r}
+MedianDraftOrder <- median(DraftOrders)
+MedianDraftOrder
+```
+The mode of the draft order was:
+```{r}
+ModeDraftOrder <- Mode(DraftOrders)
+ModeDraftOrder
+```
+The measures of central tendency for draft order is listed below (Range, Variation, and Standard Deviation)
+```{r}
+RangeDraftOrder <- 
+```
+
+
+For Quarterbacks we have selected one statistic that combines all individual data points of quarterbacks (completion percentage, touchdowns, yard thrown, etc.)
+```{r}
+QBR <- QB_Data$QBR
+AvgQBR
+```
