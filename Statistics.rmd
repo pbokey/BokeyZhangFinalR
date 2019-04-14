@@ -6,7 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-In our project, we are comparing the relative stats and draft order of players in a certain position and how it relates to the money they make in their first contract. For each position we have at least 2 statistics (draft order and skill statistic) that we will compare against first contract earned to see if there is any relation between draft order or performance that relates to earning a contract. In total, we have 6 position groups to analyze, and we have pulled data from draft years 2010 to 2013.
+In our project, we are comparing the relative stats and draft order of players in a certain positional side (Offense vs Defense) and how it relates to the money they make in their first contract. For each side of the ball we have at 2 statistics (draft order and average salary) that we will compare against first contract earned to see if there is any relation between draft order or performance that relates to earning a contract. In total, we have 6 positional groups (3 on each side of the ball) to analyze, and we have pulled data from draft years 2010 to 2013. In our final write-up we will go more in depth by position and analyze their skill statistics versus their average salaries after their rookie year.
 ```{r}
 setwd("~/Spring/Stat/Final")
 QB_Data <- read.csv("QB_Data.csv")
@@ -15,41 +15,76 @@ WR_Data <- read.csv("WR_Data.csv")
 DL_Data <- read.csv("DL_Data.csv")
 LB_Data <- read.csv("LB_Data.csv")
 DB_Data <- read.csv("DB_Data.csv")
+Offense <- read.csv("Offense.csv")
+# Defense <- read.csv("Defense.csv")
 ```
 ```{r}
 Mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
 }
-```
 
-The first position group we will be analyzing are the Quarterbacks.
-```{r}
-DraftOrders <- QB_Data$Draft.Order
-AvgDraftOrder <- mean(DraftOrders)
-```
-The average draft order of the Quarterbacks we selected was:
-```{r}
-AvgDraftOrder
-```
-The median draft order was:
-```{r}
-MedianDraftOrder <- median(DraftOrders)
-MedianDraftOrder
-```
-The mode of the draft order was:
-```{r}
-ModeDraftOrder <- Mode(DraftOrders)
-ModeDraftOrder
-```
-The measures of central tendency for draft order is listed below (Range, Variation, and Standard Deviation)
-```{r}
-RangeDraftOrder <- 
+FindOutliers <- function(x) {
+  lowerq = quantile(x)[2]
+  upperq = quantile(x)[4]
+  iqr = upperq - lowerq
+  extreme.threshold.upper = (iqr * 3) + upperq
+  extreme.threshold.lower = lowerq - (iqr * 3)
+  result <- which(x > extreme.threshold.upper | x < extreme.threshold.lower)
+}
 ```
 
 
-For Quarterbacks we have selected one statistic that combines all individual data points of quarterbacks (completion percentage, touchdowns, yard thrown, etc.)
+The first positional side we are discussing will be the Offensive side (3 positions - QB, RB, and WR)
 ```{r}
-QBR <- QB_Data$QBR
-AvgQBR
+OffenseDraftOrders <- Offense$Draft.Order
+OffenseSalary <- Offense$Avg.Salary..million.
 ```
+
+The measures of central tendencies of Offensive  salaries are as follows (in the order: Mean, Median, Mode)
+```{r}
+AvgOffenseSalary <- mean(OffenseSalary)
+MedianOffenseSalary <- median(OffenseSalary)
+ModeOffenseSalary <- Mode(OffenseSalary)
+AvgOffenseSalary
+MedianOffenseSalary
+ModeOffenseSalary
+```
+The measures of variation for QB salaries are as follows (in the order: Range, Variation, Standard Deviation)
+```{r}
+RangeOffenseSalary <- range(OffenseSalary)
+VarianceOffenseSalary <- var(OffenseSalary)
+StdOffenseSalary <- sqrt(VarianceOffenseSalary)
+RangeOffenseSalary
+VarianceOffenseSalary
+StdOffenseSalary
+```
+The Correlation test between Offensive Draft Position and Offensive Salary is as follows:
+```{r}
+cor.test(OffenseDraftOrders, OffenseSalary)
+```
+The linear regression between Offensive Draft Position and Offensive Salary is as follows:
+```{r}
+lm(OffenseSalary ~ OffenseDraftOrders)
+```
+
+Below is a scatterplot between the draft order and average salary of Quarterbacks and the Correlation
+```{r}
+plot(OffenseDraftOrders, OffenseSalary, main="Offensive Salary vs Offensive Draft Positions",
+   xlab="Offensive Draft Positions", ylab="Offensive Salary (millions)", pch=19)
+abline(lm(OffenseSalary ~ OffenseDraftOrders))
+```
+
+Below is a normality plot for Offensive Salary to determine if the sample is drawn from a normal distribution
+```{r}
+qqnorm(OffenseSalary)
+qqline(OffenseSalary)
+```
+
+Outlier Check (The outliers of the Offense Salaries are listed below)
+```{r}
+OffenseOutliers <- FindOutliers(OffenseSalary)
+OffenseOutliers
+```
+
+As you can see there are no outliers
