@@ -88,9 +88,31 @@ Outlier Check (The outliers of the Offense Salaries are listed below)
 OffenseOutliers <- FindOutliers(OffenseSalary)
 OffenseOutliers
 ```
-
-<<<<<<< Updated upstream
 As you can see there are no outliers.
+
+In the offense, we are combining 3 different positions; however, when we compare each position we must also consider skills independent to the position itself - not the entire offensive side of the ball. These statistics are not part of the correlation test, they are just for the readers reference as they will be used in arguments in the final project. For each 
+QB: QBR
+RB: Average Touchdowns Scored
+WR: Average Touchdowns Scored
+
+QBs
+```{r}
+QB_Qbr <- QB_Data$QBR
+mean(QB_Qbr)
+```
+
+RBs
+```{r}
+RB_TDs <- RB_Data$Touchdowns
+mean(RB_TDs)
+```
+
+WRs
+```{r}
+WR_TDs <- WR_Data$Touchdowns
+mean(WR_TDs)
+```
+
 
 \pagebreak
 
@@ -148,16 +170,19 @@ DefensiveOutliers
 
 As you can see there are no outliers.
 
-For each position on defense, there are meaningful statistics for each defensive position. We will highlight and descirbe them below. 
+Just like the offense, we also want to list the descriptive statistics for some data points for each individual positional group on the defensive side of the ball.
 
 DB: Interceptions (INTS)
 LB: Combined Tackles and Sacks 
 DL: Combined Tackles and Sacks
 
+DBs (Interceptions)
 ```{r}
 MeanDBInts <- mean(DB_Data$Ints)
 MeanDBInts
 ```
+
+DL (Tackles and Sacks)
 ```{r}
 MeanDLTackles <- mean(DL_Data$Tackles)
 MeanDLSacks <- mean(DL_Data$Sacks)
@@ -165,56 +190,10 @@ MeanDLTackles
 MeanDLSacks
 ```
 
+LB (Tackles and Sacks)
 ```{r}
 MeanLBTackles <- mean(LB_Data$Tackles)
 MeanLBSacks <- mean(LB_Data$Sacks)
 MeanLBTackles
 MeanLBSacks
 ```
-
-
-
-
-
-
-=======
-As you can see there are no outliers
-
-In the offense, we are combining 3 different positions; however, when we compare each position we must also consider skills independent to the position itself - not the entire offensive side of the ball. These statistics are not part of the correlation test, they are just for the readers reference as they will be used in arguments in the final project. For each 
-
-QBs (Measures of Central Tendency and Variation for QBR)
-```{r}
-QB_Qbr <- QB_Data$QBR
-mean(QB_Qbr)
-median(QB_Qbr)
-Mode(QB_Qbr)
-
-range(QB_Qbr)
-var(QB_Qbr)
-sqrt(var(QB_Qbr))
-```
-
-RBs (Measures of Central Tendency and Variation for Average Touchdowns Scored)
-```{r}
-RB_TDs <- RB_Data$Touchdowns
-mean(RB_TDs)
-median(RB_TDs)
-Mode(RB_TDs)
-
-range(RB_TDs)
-var(RB_TDs)
-sqrt(var(RB_TDs))
-```
-
-WRs (Measures of Central Tendency and Variation for Average Touchdowns Scored)
-```{r}
-WR_TDs <- WR_Data$Touchdowns
-mean(WR_TDs)
-median(WR_TDs)
-Mode(WR_TDs)
-
-range(WR_TDs)
-var(WR_TDs)
-sqrt(var(WR_TDs))
-```
->>>>>>> Stashed changes
