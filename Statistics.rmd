@@ -1,6 +1,8 @@
 ---
 title: "FinalProject"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -8,7 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 In our project, we are comparing the relative stats and draft order of players in a certain positional side (Offense vs Defense) and how it relates to the money they make in their first contract. For each side of the ball we have at 2 statistics (draft order and average salary) that we will compare against first contract earned to see if there is any relation between draft order or performance that relates to earning a contract. In total, we have 6 positional groups (3 on each side of the ball) to analyze, and we have pulled data from draft years 2010 to 2013. In our final write-up we will go more in depth by position and analyze their skill statistics versus their average salaries after their rookie year.
 ```{r}
-setwd("~/Spring/Stat/Final")
+#setwd("~/Spring/Stat/Final")
+setwd("~/Desktop/BokeyZhangFinalR")
 QB_Data <- read.csv("QB_Data.csv")
 RB_Data <- read.csv("RB_Data.csv")
 WR_Data <- read.csv("WR_Data.csv")
@@ -16,7 +19,7 @@ DL_Data <- read.csv("DL_Data.csv")
 LB_Data <- read.csv("LB_Data.csv")
 DB_Data <- read.csv("DB_Data.csv")
 Offense <- read.csv("Offense.csv")
-# Defense <- read.csv("Defense.csv")
+Defense <- read.csv("Defense.csv")
 ```
 ```{r}
 Mode <- function(x) {
@@ -33,7 +36,6 @@ FindOutliers <- function(x) {
   result <- which(x > extreme.threshold.upper | x < extreme.threshold.lower)
 }
 ```
-
 
 The first positional side we are discussing will be the Offensive side (3 positions - QB, RB, and WR)
 ```{r}
@@ -87,4 +89,90 @@ OffenseOutliers <- FindOutliers(OffenseSalary)
 OffenseOutliers
 ```
 
-As you can see there are no outliers
+As you can see there are no outliers.
+
+\pagebreak
+
+The second positional side we are discussing will be the Defensive side (3 positions - DB, DL, and LB)
+```{r}
+DefensiveDraftOrders <- Defense$Draft.Order
+DefenseSalary <- Defense$Avg.Salary
+```
+
+The measures of central tendencies of Defensive salaries are as follows (in the order: Mean, Median, Mode)
+```{r}
+AvgDefenseSalary <- mean(DefenseSalary)
+MedianDefenseSalary <- median(DefenseSalary)
+ModeDefenseSalary <- Mode(DefenseSalary)
+AvgDefenseSalary
+MedianDefenseSalary
+ModeDefenseSalary
+```
+The measures of variation for QB salaries are as follows (in the order: Range, Variation, Standard Deviation)
+```{r}
+RangeDefenseSalary <- range(DefenseSalary)
+VarianceDefenseSalary <- var(DefenseSalary)
+StdDefenseSalary <- sqrt(VarianceDefenseSalary)
+RangeDefenseSalary
+VarianceDefenseSalary
+StdDefenseSalary
+```
+The Correlation test between Offensive Draft Position and Offensive Salary is as follows:
+```{r}
+cor.test(DefensiveDraftOrders, DefenseSalary)
+```
+The linear regression between Offensive Draft Position and Offensive Salary is as follows:
+```{r}
+lm(DefenseSalary ~ DefensiveDraftOrders)
+```
+
+Below is a scatterplot between the draft order and average salary of Quarterbacks and the Correlation
+```{r}
+plot(DefensiveDraftOrders, DefenseSalary, main="Defensive Salary vs Defensive Draft Positions",
+   xlab="Defensive Draft Positions", ylab="Defensive Salary (millions)", pch=19)
+abline(lm(DefenseSalary ~ DefensiveDraftOrders))
+```
+
+Below is a normality plot for Offensive Salary to determine if the sample is drawn from a normal distribution
+```{r}
+qqnorm(DefenseSalary)
+qqline(DefenseSalary)
+```
+
+Outlier Check (The outliers of the Offense Salaries are listed below)
+```{r}
+DefensiveOutliers <- FindOutliers(DefenseSalary)
+DefensiveOutliers
+```
+
+As you can see there are no outliers.
+
+For each position on defense, there are meaningful statistics for each defensive position. We will highlight and descirbe them below. 
+
+DB: Interceptions (INTS)
+LB: Combined Tackles and Sacks 
+DL: Combined Tackles and Sacks
+
+```{r}
+MeanDBInts <- mean(DB_Data$Ints)
+MeanDBInts
+```
+```{r}
+MeanDLTackles <- mean(DL_Data$Tackles)
+MeanDLSacks <- mean(DL_Data$Sacks)
+MeanDLTackles
+MeanDLSacks
+```
+
+```{r}
+MeanLBTackles <- mean(LB_Data$Tackles)
+MeanLBSacks <- mean(LB_Data$Sacks)
+MeanLBTackles
+MeanLBSacks
+```
+
+
+
+
+
+
