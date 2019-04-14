@@ -43,7 +43,7 @@ OffenseDraftOrders <- Offense$Draft.Order
 OffenseSalary <- Offense$Avg.Salary..million.
 ```
 
-The measures of central tendencies of Offensive  salaries are as follows (in the order: Mean, Median, Mode)
+The measures of central tendencies of Offensive salaries are as follows (in the order: Mean, Median, Mode)
 ```{r}
 AvgOffenseSalary <- mean(OffenseSalary)
 MedianOffenseSalary <- median(OffenseSalary)
@@ -52,7 +52,7 @@ AvgOffenseSalary
 MedianOffenseSalary
 ModeOffenseSalary
 ```
-The measures of variation for QB salaries are as follows (in the order: Range, Variation, Standard Deviation)
+The measures of variation for Offensive salaries are as follows (in the order: Range, Variation, Standard Deviation)
 ```{r}
 RangeOffenseSalary <- range(OffenseSalary)
 VarianceOffenseSalary <- var(OffenseSalary)
@@ -70,7 +70,7 @@ The linear regression between Offensive Draft Position and Offensive Salary is a
 lm(OffenseSalary ~ OffenseDraftOrders)
 ```
 
-Below is a scatterplot between the draft order and average salary of Quarterbacks and the Correlation
+Below is a scatterplot between the draft order and average salary of Offensive players and the Correlation coefficient
 ```{r}
 plot(OffenseDraftOrders, OffenseSalary, main="Offensive Salary vs Offensive Draft Positions",
    xlab="Offensive Draft Positions", ylab="Offensive Salary (millions)", pch=19)
@@ -113,7 +113,6 @@ WR_TDs <- WR_Data$Touchdowns
 mean(WR_TDs)
 ```
 
-
 \pagebreak
 
 The second positional side we are discussing will be the Defensive side (3 positions - DB, DL, and LB)
@@ -131,7 +130,7 @@ AvgDefenseSalary
 MedianDefenseSalary
 ModeDefenseSalary
 ```
-The measures of variation for QB salaries are as follows (in the order: Range, Variation, Standard Deviation)
+The measures of variation for Defensive salaries are as follows (in the order: Range, Variation, Standard Deviation)
 ```{r}
 RangeDefenseSalary <- range(DefenseSalary)
 VarianceDefenseSalary <- var(DefenseSalary)
@@ -140,29 +139,29 @@ RangeDefenseSalary
 VarianceDefenseSalary
 StdDefenseSalary
 ```
-The Correlation test between Offensive Draft Position and Offensive Salary is as follows:
+The Correlation test between Defensive Draft Position and Defensive Salary is as follows:
 ```{r}
 cor.test(DefensiveDraftOrders, DefenseSalary)
 ```
-The linear regression between Offensive Draft Position and Offensive Salary is as follows:
+The linear regression between Defensive Draft Position and Defensive Salary is as follows:
 ```{r}
 lm(DefenseSalary ~ DefensiveDraftOrders)
 ```
 
-Below is a scatterplot between the draft order and average salary of Quarterbacks and the Correlation
+Below is a scatterplot between the draft order and average salary of Defensive players and the Correlation coefficient 
 ```{r}
 plot(DefensiveDraftOrders, DefenseSalary, main="Defensive Salary vs Defensive Draft Positions",
    xlab="Defensive Draft Positions", ylab="Defensive Salary (millions)", pch=19)
 abline(lm(DefenseSalary ~ DefensiveDraftOrders))
 ```
 
-Below is a normality plot for Offensive Salary to determine if the sample is drawn from a normal distribution
+Below is a normality plot for Defensive Salary to determine if the sample is drawn from a normal distribution
 ```{r}
 qqnorm(DefenseSalary)
 qqline(DefenseSalary)
 ```
 
-Outlier Check (The outliers of the Offense Salaries are listed below)
+Outlier Check (The outliers of the Defensive Salaries are listed below)
 ```{r}
 DefensiveOutliers <- FindOutliers(DefenseSalary)
 DefensiveOutliers
