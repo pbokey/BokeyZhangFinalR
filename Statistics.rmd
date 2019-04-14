@@ -89,6 +89,7 @@ OffenseOutliers <- FindOutliers(OffenseSalary)
 OffenseOutliers
 ```
 
+<<<<<<< Updated upstream
 As you can see there are no outliers.
 
 \pagebreak
@@ -176,3 +177,44 @@ MeanLBSacks
 
 
 
+=======
+As you can see there are no outliers
+
+In the offense, we are combining 3 different positions; however, when we compare each position we must also consider skills independent to the position itself - not the entire offensive side of the ball. These statistics are not part of the correlation test, they are just for the readers reference as they will be used in arguments in the final project. For each 
+
+QBs (Measures of Central Tendency and Variation for QBR)
+```{r}
+QB_Qbr <- QB_Data$QBR
+mean(QB_Qbr)
+median(QB_Qbr)
+Mode(QB_Qbr)
+
+range(QB_Qbr)
+var(QB_Qbr)
+sqrt(var(QB_Qbr))
+```
+
+RBs (Measures of Central Tendency and Variation for Average Touchdowns Scored)
+```{r}
+RB_TDs <- RB_Data$Touchdowns
+mean(RB_TDs)
+median(RB_TDs)
+Mode(RB_TDs)
+
+range(RB_TDs)
+var(RB_TDs)
+sqrt(var(RB_TDs))
+```
+
+WRs (Measures of Central Tendency and Variation for Average Touchdowns Scored)
+```{r}
+WR_TDs <- WR_Data$Touchdowns
+mean(WR_TDs)
+median(WR_TDs)
+Mode(WR_TDs)
+
+range(WR_TDs)
+var(WR_TDs)
+sqrt(var(WR_TDs))
+```
+>>>>>>> Stashed changes
